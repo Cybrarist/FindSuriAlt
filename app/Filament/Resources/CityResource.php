@@ -30,15 +30,29 @@ class CityResource extends Resource
 
                 Forms\Components\TextInput::make('name_ar')
                     ->required(),
+
+                Forms\Components\Select::make('province_id')
+                    ->relationship('province', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->native(false)
+                    ->required(),
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(function ($query) {
+                $query->with(['province']);
+            })
             ->columns([
                 Tables\Columns\TextColumn::make('name')->searchable(),
                 Tables\Columns\TextColumn::make('name_ar')->searchable(),
+                Tables\Columns\TextColumn::make('province.name'),
+            ])->filters([
+                Tables\Filters\SelectFilter::make('province_id')
+                    ->relationship('province', 'name'),
             ]);
     }
 

@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Filament\Resources\PersonResource\Pages;
+namespace App\Filament\Resources\ProvinceResource\Pages;
 
-use App\Filament\Resources\PersonResource;
+use App\Filament\Resources\ProvinceResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListPeople extends ListRecords
+class ListProvinces extends ListRecords
 {
-    protected static string $resource = PersonResource::class;
+    protected static string $resource = ProvinceResource::class;
 
     protected function getHeaderActions(): array
     {
-
         return [
             Actions\CreateAction::make(),
         ];

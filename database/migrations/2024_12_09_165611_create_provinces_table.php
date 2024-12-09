@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cities', function (Blueprint $table) {
+        Schema::create('provinces', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
-            $table->text('name')->unique();
-            $table->text('name_ar')->unique();
+            $table->string('name')->unique();
+            $table->string('name_ar')->unique();
 
             $table->foreignIdFor(\App\Models\User::class);
-            $table->foreignIdFor(\App\Models\Province::class);
-
         });
     }
 
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cities');
+        Schema::dropIfExists('provinces');
     }
 };

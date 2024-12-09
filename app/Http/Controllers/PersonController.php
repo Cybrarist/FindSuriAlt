@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePersonRequest;
 use App\Http\Requests\UpdatePersonRequest;
 use App\Models\Person;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class PersonController extends Controller
 {
@@ -37,7 +38,12 @@ class PersonController extends Controller
      */
     public function show(Person $person)
     {
-        //
+        $person->loadMissing([
+            'arrested_in_city:id,name',
+            'born_in_city:id,name',
+        ]);
+
+        return JsonResource::make($person);
     }
 
     /**

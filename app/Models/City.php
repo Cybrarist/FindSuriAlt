@@ -15,10 +15,15 @@ class City extends Model
         "name",
         "name_ar",
         "user_id",
+        "province_id",
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+    public function province(): BelongsTo
+    {
+        return $this->belongsTo(Province::class);
     }
 }
