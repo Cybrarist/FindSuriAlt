@@ -60,6 +60,11 @@ class PersonResource extends Resource
                 ->options(StatusEnum::class)
                 ->default(StatusEnum::Missing),
 
+                Forms\Components\Textarea::make('contact')
+                    ->columnSpanFull()
+                    ->nullable()
+                    ->autosize()
+                    ->rows(4),
 
                 Forms\Components\FileUpload::make('images')
                     ->required(fn ($get) => ! $get('name') && ! $get('name_ar'))

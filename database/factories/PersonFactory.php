@@ -19,8 +19,8 @@ class PersonFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'arrested_in' =>$this->faker->numberBetween(1,100),
-            'born_in' =>$this->faker->numberBetween(1,100),
+            'arrested_in' =>$this->faker->numberBetween(1,92),
+            'born_in' =>$this->faker->numberBetween(1,92),
             'user_id' => 1,
             'born_on' => $this->faker->date,
             'arrested_at' => $this->faker->date,

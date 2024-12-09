@@ -23,6 +23,7 @@ class Person extends Model
         "videos",
         "user_id",
         "status",
+        "contact",
     ];
 
     protected function casts(): array

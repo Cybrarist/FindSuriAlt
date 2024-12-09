@@ -38,7 +38,7 @@ class PersonPolicy
      */
     public function update(User $user, Person $person): bool
     {
-        return false;
+        return Auth::id() >1 ;
     }
 
     /**

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\City::class, 'arrested_in')->nullable();
 
             $table->string('status')->default(\App\Enums\StatusEnum::Missing->value);
+            $table->text('contact')->nullable();
 
             $table->text('images')->nullable();
             $table->text('videos')->nullable();
