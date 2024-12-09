@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\StatusEnum;
 use App\Filament\Resources\PersonResource\Pages;
 use App\Filament\Resources\PersonResource\RelationManagers;
 use App\Models\Person;
@@ -55,6 +56,11 @@ class PersonResource extends Resource
                     ->preload()
                     ->native(false),
 
+                Select::make('status')
+                ->options(StatusEnum::class)
+                ->default(StatusEnum::Missing),
+
+
                 Forms\Components\FileUpload::make('images')
                     ->required(fn ($get) => ! $get('name') && ! $get('name_ar'))
                     ->multiple()
@@ -84,16 +90,24 @@ class PersonResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')->searchable(),
                 Tables\Columns\TextColumn::make('name_ar')->searchable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->color(fn ($state): string => StatusEnum::get_badge($state)),
+
                 Tables\Columns\TextColumn::make('born_in_city.name'),
-                Tables\Columns\TextColumn::make('born_in')->searchable(),
+                Tables\Columns\TextColumn::make('born_on')->date('d-m-Y'),
                 Tables\Columns\TextColumn::make('arrested_in_city.name'),
-                Tables\Columns\TextColumn::make('arrested_in')->searchable(),
+                Tables\Columns\TextColumn::make('arrested_at')->date('d-m-Y'),
             ])
             ->filters([
+                Tables\Filters\SelectFilter::make('status')
+                    ->preload(),
+
                 Tables\Filters\SelectFilter::make('born_in_city')
                     ->relationship('born_in_city', 'name')
                     ->preload()
                     ->multiple(),
+
                 Tables\Filters\SelectFilter::make('arrested_in_city')
                     ->relationship('arrested_in_city', 'name')
                     ->preload()

@@ -157,5 +157,9 @@ class DatabaseSeeder extends Seeder
             ]);
 
 
+        $this->call([
+            PersonSeeder::class,
+        ]);
+
     }
 }

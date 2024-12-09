@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\StatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,18 +22,19 @@ class Person extends Model
         "images",
         "videos",
         "user_id",
+        "status",
     ];
 
     protected function casts(): array
     {
         return [
-            'arrested_at' => 'date',
-            'born_on' => 'date',
+            'arrested_at' => 'date:y-m-d',
+            'born_on' => 'date:y-m-d',
+            'status'=>StatusEnum::class,
             'images' => 'array',
             'videos' => 'array',
         ];
     }
-
 
     public function user(): BelongsTo
     {

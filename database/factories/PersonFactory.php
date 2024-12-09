@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\StatusEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,13 @@ class PersonFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'arrested_in' =>$this->faker->numberBetween(1,100),
+            'born_in' =>$this->faker->numberBetween(1,100),
+            'user_id' => 1,
+            'born_on' => $this->faker->date,
+            'arrested_at' => $this->faker->date,
+            'status' => $this->faker->randomElement([StatusEnum::Missing->value, StatusEnum::Found->value]),
         ];
     }
 }
