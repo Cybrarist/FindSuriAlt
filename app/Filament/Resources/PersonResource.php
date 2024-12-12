@@ -14,16 +14,26 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class PersonResource extends Resource
 {
     protected static ?string $model = Person::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-user';
-
     protected static ?int $navigationSort=1;
+
+    public static function canViewAny(): bool
+    {
+        return true;
+    }
+
+    public static function canView(Model $record): bool
+    {
+        return true;
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -80,6 +90,37 @@ class PersonResource extends Resource
                     ->previewable()
                     ->downloadable()
                     ->panelLayout('grid'),
+
+
+                Forms\Components\FileUpload::make('faces')
+                    ->visible(Auth::check())
+                    ->disk('faces')
+                    ->directory('form-attachments')
+                    ->visibility('private')
+                    ->disabled()
+                    ->multiple()
+                    ->image()
+                    ->previewable()
+                    ->downloadable()
+                    ->panelLayout('grid')
+                    ->formatStateUsing(function ($record){
+
+                        $list_of_images_names_only=[];
+                        foreach ($record->images as $image)
+                            $list_of_images_names_only[]=explode('.', $image)[0]. '*' . '.png';
+
+
+
+                        //get available faces from directory
+                        $files = glob(storage_path('app/private/faces') .
+                            '/' . implode(',', $list_of_images_names_only)
+                        );
+
+                        foreach ($files as &$file)
+                            $file= str_replace(storage_path("app/private/faces/") , "" , $file);
+
+                        return $files;
+                    }),
             ]);
     }
 

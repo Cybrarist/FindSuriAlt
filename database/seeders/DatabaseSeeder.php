@@ -17,11 +17,12 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@test.com',
-            'password' => 'password'
-        ]);
+        if (app()->isLocal())
+            User::factory()->create([
+                'name' => 'Test User',
+                'email' => 'test@test.com',
+                'password' => 'password'
+            ]);
 
         $provinces=[
             "Damascus"=>"دمشق",

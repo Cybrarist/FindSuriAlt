@@ -45,6 +45,6 @@ class GetPeopleFilterController extends Controller
         if ($request->province_id)
             $people->whereIn("born_in",City::where('province_id',$request->province_id)->pluck('cities.id')->toArray());
 
-        return JsonResource::collection($people->with('born_in_city:id,name','arrested_in_city:id,name')->get());
+        return JsonResource::collection($people->with('born_in_city:id,name','arrested_in_city:id,name')->limit(20)->get());
     }
 }

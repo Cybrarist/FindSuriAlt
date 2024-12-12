@@ -20,7 +20,7 @@ enum StatusEnum: string implements HasLabel
     public static function get_badge($value)
     {
         return match ($value){
-            self::Missing=>"warning",
+            self::Missing=>"danger",
             self::Found=>"success",
         };
 

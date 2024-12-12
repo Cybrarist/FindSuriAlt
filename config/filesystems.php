@@ -37,6 +37,20 @@ return [
             'throw' => false,
         ],
 
+        'faces' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/faces'),
+            'serve' => true,
+            'throw' => false,
+        ],
+
+        'temporary_images_for_search' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/temporary_images'),
+            'serve' => true,
+            'throw' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
@@ -44,6 +58,7 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+
 
         's3' => [
             'driver' => 's3',
