@@ -14,8 +14,17 @@ The dockerfile has everything required to deploy this project
 1. Clone the repository:
    ```bash
    git clone https://github.com/Cybrarist/FindSuriAlt
+   ```
+
+   ```bash
    cd FindSuriAlt
+   ```
+
+   ```bash
    docker build -t findsuriapp .
+   ```
+
+   ```bash
    docker run -p 80:80 -p 443:443 -p 2019:2019 -p 8080:8080 --name findsuricontainer findsuriapp
    ```
 
