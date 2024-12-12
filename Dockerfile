@@ -38,20 +38,16 @@ RUN /opt/venv/bin/pip install --upgrade pip \
     && /opt/venv/bin/pip install numpy \
     && /opt/venv/bin/pip install python-dotenv
 
-# Copy the .env.example file as .env
+
 COPY .env.example /app/.env
 
 # Copy the rest of the application files into the container
 COPY . /app
 
-# Set working directory inside the container
-WORKDIR /app
-
-# Expose the ports the app will use
 EXPOSE 80 443 2019 8080
-
 # Make the entrypoint script executable
-RUN chmod +x /app/*
+
+RUN chmod +x docker/entrypoint.sh
 
 # Set the entrypoint to your custom script
 ENTRYPOINT ["docker/entrypoint.sh"]
