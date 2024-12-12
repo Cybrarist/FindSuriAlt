@@ -45,31 +45,20 @@ RUN install-php-extensions \
 	zip \
 	opcache
 
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
-RUN composer require laravel/octane
-RUN composer install
-
-
-ENV DB_CONNECTION=sqlite
-ENV DEFAULT_USER=test
-ENV DEFAULT_EMAIL=docker@test.com
-ENV DEFAULT_PASSWORD=thisismypassword
-ENV APPRISE_URL=""
-ENV APP_TIMEZONE=UTC
-ENV RSS_FEED=1
-ENV TOP_NAVIGATION=0
-ENV DISABLE_TOP_BAR=0
-ENV BREADCRUMBS=1
-ENV SPA=1
-ENV DISABLE_AUTH=1
-ENV THEME_COLOR=Stone
-ENV APP_URL=http://localhost:8080
-ENV ASSET_URL=http://localhost:8080
-
-COPY .env.example /app/.env
 
 # Copy the rest of the application files into the container
 COPY . /app
+
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+RUN composer require laravel/octane
+RUN php artisan octane:install --server=frankenphp
+RUN composer install
+
+COPY .env.example /app/.env
+
+RUN php artisan key:generate
+RUN php artisan cache:clear 
+RUN php artisan config:clear
 
 EXPOSE 80 443 2019 8080
 
