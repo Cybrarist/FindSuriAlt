@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use App\Enums\StatusEnum;
+use App\Observers\PersonObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+#[ObservedBy(PersonObserver::class)]
 class Person extends Model
 {
     /** @use HasFactory<\Database\Factories\PersonFactory> */
