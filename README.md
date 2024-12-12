@@ -7,10 +7,17 @@
 - **Search Database:** Access a searchable registry of reported individuals with advanced filters (e.g., name, age, location, date).
 
 ## Installation
+The dockerfile has everything required to deploy this project
 
+
+**Docker instructions**:  
 1. Clone the repository:
    ```bash
    git clone https://github.com/Cybrarist/FindSuriAlt
-   cd FindSuriAlt```
+   cd FindSuriAlt
+   docker build -t findsuriapp .
+   ```
+
+If you are planning on doing this without docker, please check Dockerfile for the required libraries
 
 There's a lot to do and we need contributors, please do not feel shy to contribute, or suggest ideas. Start by forking the project and submitting pull requests  
