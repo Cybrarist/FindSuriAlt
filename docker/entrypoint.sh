@@ -3,13 +3,14 @@
 if [ ! -d "vendor" ]; then
   echo "Installing Composer"
 
+# This installs in Dockerfile instead.
 #  Check if compose install
-  if ! command -v composer &> /dev/null; then
-    curl -sS https://getcomposer.org/installer | php
-    mv composer.phar /usr/local/bin/composer
-  fi
-   composer install
-fi
+#  if ! command -v composer &> /dev/null; then
+#    curl -sS https://getcomposer.org/installer | php
+#    mv composer.phar /usr/local/bin/composer
+#  fi
+#   composer install
+#fi
 
 
 if [ ! -f ".env" ] ||  ! grep -q . ".env" ; then
@@ -17,7 +18,8 @@ if [ ! -f ".env" ] ||  ! grep -q . ".env" ; then
     php artisan key:generate --force
 fi
 
-/app/face_recognition/bin/pip install deepface tf-keras matplotlib
+# No need, as it's installed using Dockerfile
+#/app/face_recognition/bin/pip install deepface tf-keras matplotlib
 
 php artisan storage:link
 php artisan config:clear

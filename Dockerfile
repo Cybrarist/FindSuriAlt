@@ -41,6 +41,16 @@ RUN python3 -m venv /app/face_recognition/
 
 EXPOSE 80 443 2019 8080
 
+# Set up Python virtual environment and install Python dependencies
+RUN python3 -m venv /app/face_recognition/ \
+    && /app/face_recognition/bin/pip install --no-cache-dir deepface tf-keras matplotlib
+
+# Install Composer globally and install PHP dependencies
+RUN curl -sS https://getcomposer.org/installer | php \
+    && mv composer.phar /usr/local/bin/composer \
+    && cd /app \
+    && composer install
+
 COPY ./docker/base_supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 
