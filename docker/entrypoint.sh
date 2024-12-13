@@ -10,8 +10,8 @@ if [ ! -d "vendor" ]; then
 #    mv composer.phar /usr/local/bin/composer
 #  fi
 #   composer install
-#fi
 
+fi
 
 if [ ! -f ".env" ] ||  ! grep -q . ".env" ; then
     cp .env.example .env
