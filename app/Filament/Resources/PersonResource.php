@@ -104,16 +104,17 @@ class PersonResource extends Resource
                     ->downloadable()
                     ->panelLayout('grid')
                     ->formatStateUsing(function ($record){
+                        if (!$record)
+                            return [];
 
                         $list_of_images_names_only=[];
                         foreach ($record->images as $image)
-                            $list_of_images_names_only[]=explode('.', $image)[0]. '*' . '.png';
-
-
+                            $list_of_images_names_only[]=explode('.', $image)[0]. '*';
 
                         //get available faces from directory
                         $files = glob(storage_path('app/private/faces') .
-                            '/' . implode(',', $list_of_images_names_only)
+                            '/{' . implode(',', $list_of_images_names_only) .'}' ,
+                            GLOB_BRACE
                         );
 
                         foreach ($files as &$file)

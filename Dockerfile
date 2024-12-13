@@ -17,55 +17,35 @@ RUN apt update && apt install -y \
         libpng-dev \
         libicu-dev \
         python3 \
-        python3-venv \
         python3-pip \
+        python3-venv \
         python3-dev \
-        build-essential \
         ffmpeg \
         libsm6 \
         libxext6 \
         libxrender1 \
         && apt-get clean
 
-# Create a Python virtual environment in the container
-RUN python3 -m venv /opt/venv
-
-# Activate the virtual environment and install required Python libraries
-RUN /opt/venv/bin/pip install --upgrade pip \
-    && /opt/venv/bin/pip install deepface \
-    && /opt/venv/bin/pip install tensorflow \
-    && /opt/venv/bin/pip install opencv-python-headless \
-    && /opt/venv/bin/pip install numpy \
-    && /opt/venv/bin/pip install python-dotenv
-
 RUN install-php-extensions \
 	pdo_mysql \
 	gd \
 	intl \
+    pcntl \
 	zip \
 	opcache
-
 
 # Copy the rest of the application files into the container
 COPY . /app
 
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
-RUN composer require laravel/octane
-RUN php artisan octane:install --server=frankenphp
-RUN composer install
-
-COPY .env.example /app/.env
-
-RUN php artisan key:generate
-RUN php artisan cache:clear 
-RUN php artisan config:clear
+RUN python3 -m venv /app/face_recognition/
 
 EXPOSE 80 443 2019 8080
 
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-RUN chmod +x docker/entrypoint.sh
+COPY ./docker/base_supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+
+RUN chmod +x ./docker/entrypoint.sh
+
+WORKDIR /app
+
 ENTRYPOINT ["docker/entrypoint.sh"]
-
-
-# Set the virtual environment path to be used in runtime
-ENV PATH="/opt/venv/bin:$PATH"

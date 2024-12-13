@@ -12,7 +12,7 @@ class PersonObserver
      */
     public function created(Person $person): void
     {
-        foreach ($person->images as $image)
+        foreach ($person->images ?? [] as $image)
             DetectPersonFacesJob::dispatch($image);
     }
 
@@ -22,7 +22,7 @@ class PersonObserver
     //todo remove faces that don't have images anymore
     public function updated(Person $person): void
     {
-        foreach ($person->images as $image)
+        foreach ($person->images ??[] as $image)
             DetectPersonFacesJob::dispatch($image);
     }
 

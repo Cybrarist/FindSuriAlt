@@ -158,9 +158,10 @@ class DatabaseSeeder extends Seeder
             ]);
 
 
-        $this->call([
-            PersonSeeder::class,
-        ]);
+        if (app()->isLocal())
+            $this->call([
+                PersonSeeder::class,
+            ]);
 
     }
 }

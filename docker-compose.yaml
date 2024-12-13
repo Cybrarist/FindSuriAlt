@@ -1,0 +1,20 @@
+services:
+  find-suri:
+    build:
+      context: .
+    ports:
+      - 8080:80
+    environment:
+      DB_CONNECTION: sqlite
+      DEFAULT_USER: "test"
+      DEFAULT_EMAIL: "docker@test.com"
+      DEFAULT_PASSWORD: "thisismypassword"
+      APP_TIMEZONE: UTC
+      TOP_NAVIGATION: 0
+      DISABLE_TOP_BAR: 0
+      BREADCRUMBS: 1
+      SPA: 1
+      THEME_COLOR: Stone
+      APP_URL: "http://localhost:8080"
+      ASSET_URL: "http://localhost:8080"
+      PYTHON_RUN_COMMAND_OR_PATH: "/app/face_recognition/bin/python3"

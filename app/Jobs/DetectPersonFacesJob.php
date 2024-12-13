@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Process;
 
 class DetectPersonFacesJob implements ShouldQueue
@@ -28,5 +29,7 @@ class DetectPersonFacesJob implements ShouldQueue
             "  --image=" .storage_path('app/public/' . $this->image).
             "  --faces=" .storage_path('app/private/faces')
         );
+
+        Log::info($process->command());
     }
 }
