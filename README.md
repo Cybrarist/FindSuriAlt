@@ -21,11 +21,12 @@ The dockerfile has everything required to deploy this project
    ```
 
    ```bash
-   docker build -t findsuriapp .
+   docker compose up
    ```
 
+   Mount project files so you can reflect changes in real time. **Replace appname with the actual docker app you built earlier**
    ```bash
-   docker run -p 80:80 -p 443:443 -p 2019:2019 -p 8080:8080 --name findsuricontainer findsuriapp
+   docker run -it -v $(pwd):/app appname
    ```
 
 If you are planning on doing this without docker, please check Dockerfile for the required libraries
