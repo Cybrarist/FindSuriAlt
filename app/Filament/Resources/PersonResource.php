@@ -104,7 +104,7 @@ class PersonResource extends Resource
                     ->downloadable()
                     ->panelLayout('grid')
                     ->formatStateUsing(function ($record){
-                        if (!$record)
+                        if (!$record || empty($record?->images))
                             return [];
 
                         $list_of_images_names_only=[];
