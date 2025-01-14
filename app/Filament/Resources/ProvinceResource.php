@@ -27,7 +27,7 @@ class ProvinceResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required(),
 
-                Forms\Components\TextInput::make('name_ar')
+                Forms\Components\TextInput::make('name_second_lang')
                     ->required(),
             ]);
     }
@@ -37,7 +37,7 @@ class ProvinceResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->searchable(),
-                Tables\Columns\TextColumn::make('name_ar')->searchable(),
+                Tables\Columns\TextColumn::make('name_second_lang')->searchable(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

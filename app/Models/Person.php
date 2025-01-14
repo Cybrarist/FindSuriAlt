@@ -17,11 +17,11 @@ class Person extends Model
 
     protected $fillable=[
         "name",
-        "name_ar",
+        "name_second_lang",
         "born_on",
         "born_in",
-        "arrested_at",
-        "arrested_in",
+        "missing_at",
+        "missing_in",
         "images",
         "videos",
         "user_id",
@@ -32,7 +32,7 @@ class Person extends Model
     protected function casts(): array
     {
         return [
-            'arrested_at' => 'date:y-m-d',
+            'missing_at' => 'date:y-m-d',
             'born_on' => 'date:y-m-d',
             'status'=>StatusEnum::class,
             'images' => 'array',
@@ -49,8 +49,8 @@ class Person extends Model
     {
         return $this->belongsTo(City::class, 'born_in');
     }
-    public function arrested_in_city(): BelongsTo
+    public function missing_in_city(): BelongsTo
     {
-        return $this->belongsTo(City::class, 'arrested_in');
+        return $this->belongsTo(City::class, 'missing_in');
     }
 }

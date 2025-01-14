@@ -8,7 +8,7 @@ class Province extends Model
 {
     protected $fillable=[
         "name",
-        "name_ar",
+        "name_second_lang",
         "user_id",
     ];
 

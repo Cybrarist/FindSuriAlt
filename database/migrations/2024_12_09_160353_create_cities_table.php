@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->text('name')->unique();
-            $table->text('name_ar')->unique();
+            $table->string('name')->unique();
+            $table->string('name_second_lang')->unique()->nullable();
 
             $table->foreignIdFor(\App\Models\User::class);
             $table->foreignIdFor(\App\Models\Province::class);

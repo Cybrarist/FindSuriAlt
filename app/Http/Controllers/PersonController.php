@@ -39,7 +39,7 @@ class PersonController extends Controller
     public function show(Person $person)
     {
         $person->loadMissing([
-            'arrested_in_city:id,name',
+            'missing_in_city:id,name',
             'born_in_city:id,name',
         ]);
 

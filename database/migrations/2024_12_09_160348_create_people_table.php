@@ -17,13 +17,13 @@ return new class extends Migration
 
 
             $table->string('name')->nullable();
-            $table->string('name_ar')->nullable();
+            $table->string('name_second_lang')->nullable();
 
             $table->date('born_on')->nullable();
             $table->foreignIdFor(\App\Models\City::class, 'born_in')->nullable();
 
-            $table->string('arrested_at')->nullable();
-            $table->foreignIdFor(\App\Models\City::class, 'arrested_in')->nullable();
+            $table->string('missing_at')->nullable();
+            $table->foreignIdFor(\App\Models\City::class, 'missing_in')->nullable();
 
             $table->string('status')->default(\App\Enums\StatusEnum::Missing->value);
             $table->text('contact')->nullable();

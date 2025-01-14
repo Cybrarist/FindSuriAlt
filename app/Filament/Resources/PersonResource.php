@@ -43,7 +43,7 @@ class PersonResource extends Resource
                     ->required(fn ($get) => ! $get('images'))
                     ->string(),
 
-                TextInput::make('name_ar')
+                TextInput::make('name_second_lang')
                     ->string()
                     ->required(fn ($get) => ! $get('images'))
                     ->nullable(),
@@ -57,11 +57,11 @@ class PersonResource extends Resource
                     ->preload()
                     ->native(false),
 
-                DatePicker::make('arrested_at')
+                DatePicker::make('missing_at')
                     ->date(),
 
-                Select::make('arrested_in')
-                    ->relationship('arrested_in_city', 'name')
+                Select::make('missing_in')
+                    ->relationship('missing_in_city', 'name')
                     ->searchable()
                     ->preload()
                     ->native(false),
@@ -77,7 +77,7 @@ class PersonResource extends Resource
                     ->rows(4),
 
                 Forms\Components\FileUpload::make('images')
-                    ->required(fn ($get) => ! $get('name') && ! $get('name_ar'))
+                    ->required(fn ($get) => ! $get('name') && ! $get('name_second_lang'))
                     ->multiple()
                     ->image()
                     ->previewable()
@@ -131,20 +131,20 @@ class PersonResource extends Resource
             ->modifyQueryUsing(function ($query){
                 $query->with([
                     'born_in_city',
-                    'arrested_in_city',
+                    'missing_in_city',
                 ]);
             })
             ->columns([
                 Tables\Columns\TextColumn::make('name')->searchable(),
-                Tables\Columns\TextColumn::make('name_ar')->searchable(),
+                Tables\Columns\TextColumn::make('name_second_lang')->searchable(),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->color(fn ($state): string => StatusEnum::get_badge($state)),
 
                 Tables\Columns\TextColumn::make('born_in_city.name'),
                 Tables\Columns\TextColumn::make('born_on')->date('d-m-Y'),
-                Tables\Columns\TextColumn::make('arrested_in_city.name'),
-                Tables\Columns\TextColumn::make('arrested_at')->date('d-m-Y'),
+                Tables\Columns\TextColumn::make('missing_in_city.name'),
+                Tables\Columns\TextColumn::make('missing_at')->date('d-m-Y'),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
@@ -155,8 +155,8 @@ class PersonResource extends Resource
                     ->preload()
                     ->multiple(),
 
-                Tables\Filters\SelectFilter::make('arrested_in_city')
-                    ->relationship('arrested_in_city', 'name')
+                Tables\Filters\SelectFilter::make('missing_in_city')
+                    ->relationship('missing_in_city', 'name')
                     ->preload()
                     ->multiple(),
             ])

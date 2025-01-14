@@ -28,7 +28,7 @@ class CityResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required(),
 
-                Forms\Components\TextInput::make('name_ar')
+                Forms\Components\TextInput::make('name_second_lang')
                     ->required(),
 
                 Forms\Components\Select::make('province_id')
@@ -48,7 +48,7 @@ class CityResource extends Resource
             })
             ->columns([
                 Tables\Columns\TextColumn::make('name')->searchable(),
-                Tables\Columns\TextColumn::make('name_ar')->searchable(),
+                Tables\Columns\TextColumn::make('name_second_lang')->searchable(),
                 Tables\Columns\TextColumn::make('province.name'),
             ])->filters([
                 Tables\Filters\SelectFilter::make('province_id')
